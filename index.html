@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Простой чат</title>
+</head>
+
+<body>
+    <h1>Чат</h1>
+    <div id="chat">
+        <div id="messages">
+            <ul id="messageList"></ul>
+        </div>
+        <div id="users">
+            <h2>Список пользователей</h2>
+            <ul id="userList"></ul>
+        </div>
+        <input id="name" type="text" placeholder="Введите ваше имя">
+        <input id="message" type="text" placeholder="Введите сообщение">
+        <input id="color" type="color" value="#000000"> <!-- Выбор цвета -->
+        <input id="send" type="button" value="Отправить"> <!-- Заменил 'button' на 'button' -->
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+
+</html>
