@@ -8,14 +8,14 @@ const io = socketIo(server);
 
 app.use(express.static(__dirname));
 
-const connectedUsers = new Map(); // Храним подключенных пользователей (ключ - имя, значение - цвет)
+const connectedUsers = new Map();
 
 io.on('connection', (socket) => {
-    let userName = ''; // Имя пользователя
+    let userName = '';
 
     socket.on('join', (user) => {
         userName = user.name;
-        connectedUsers.set(userName, user.color); // Сохраняем имя и цвет
+        connectedUsers.set(userName, user.color);
         if (connectedUsers.size === 1) {
             socket.emit('welcome', 'Добро пожаловать. Вы первый в чате.');
         } else {
@@ -34,7 +34,7 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('userLeft', userName);
     });
 
-    // Обработка личных сообщений
+
     socket.on('privateMessage', (data) => {
         const recipientSocket = [...io.sockets.sockets.values()].find(
             (socket) => socket.handshake.query.name === data.recipient

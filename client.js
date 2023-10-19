@@ -4,21 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const nameInput = document.getElementById('name');
     const messageInput = document.getElementById('message');
     const sendButton = document.getElementById('send');
-    const colorInput = document.getElementById('color'); // Поле для выбора цвета
-    const userList = document.getElementById('userList'); // Список пользователей
-    let userName = ''; // Имя пользователя
-    let userColor = ''; // Цвет пользователя
-    let connectedUsers = new Set(); // Список пользователей
+    const colorInput = document.getElementById('color');
+    const userList = document.getElementById('userList');
+    let userName = '';
+    let userColor = '';
+    let connectedUsers = new Set();
 
     sendButton.addEventListener('click', () => {
         const name = nameInput.value;
         const message = messageInput.value;
-        const color = colorInput.value; // Получаем выбранный пользователем цвет
-
+        const color = colorInput.value;
         if (name && message) {
             if (!userName) {
                 userName = name;
-                userColor = color; // Используем выбранный цвет
+                userColor = color;
                 socket.emit('join', { name: userName, color: userColor });
             }
             socket.emit('message', { name: userName, message, color: userColor });
@@ -58,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function updateUserList(users) {
-        userList.innerHTML = ''; // Очистка списка пользователей
+        userList.innerHTML = '';
         users.forEach((user) => {
             const item = document.createElement('li');
             item.textContent = user;
@@ -66,19 +65,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Добавьте обработчик отправки по нажатию клавиши Enter
+
     messageInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             sendButton.click();
         }
     });
 
-    // Добавьте обработчик выбора цвета
+
     colorInput.addEventListener('input', (event) => {
-        userColor = event.target.value; // Обновляем цвет пользователя при выборе
+        userColor = event.target.value;
     });
 
-    // Обработка отправки личных сообщений
+
     userList.addEventListener('click', (event) => {
         const target = event.target;
         if (target.tagName === 'LI') {
